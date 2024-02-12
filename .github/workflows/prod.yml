@@ -1,0 +1,50 @@
+name: sarabwayu
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+
+        steps:
+            - name: Get current time
+              uses: josStorer/get-current-time@v2.0.2
+              id: current-time
+              with:
+                  format: YYYY-MM-DDTHH-mm-ss
+                  utcOffset: "+09:00"
+
+            - uses: actions/checkout@v2
+            - name: Docker build
+              run: |
+                  docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+                  docker build -f Dockerfile -t taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}} .
+                  docker push taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}}
+
+            - name: Deploy
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.NCP_HOST }}
+                  username: ${{ secrets.NCP_USER }}
+                  password: ${{ secrets.NCP_PASSWORD }}
+                  key: ${{ secrets.NCP_KEY }}
+                  envs: GITHUB_SHA
+                  script: |
+                      # Pull the new image
+                      echo "🐳 Docker Image Pull"
+                      sudo docker pull taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}}
+
+                      # Stop & Start
+                      echo "🐳 Docker Stop & Start"
+                      sudo docker stop docent-front
+                      sudo docker run --rm -d --name docent-front -p 3000:3000 taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}}
+
+                      # Check
+                      echo "🐳 Docker ps"
+                      docker ps
+
+                      # Cleanup old images
+                      echo "🧹 Cleaning up old Docker images"
+                      sudo docker rmi -f $(sudo docker images -q) || true
