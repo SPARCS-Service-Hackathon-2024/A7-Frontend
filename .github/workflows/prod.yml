@@ -32,6 +32,7 @@ jobs:
                   key: ${{ secrets.NCP_KEY }}
                   envs: GITHUB_SHA
                   script: |
+                      sudo systemctl stop nginx || true
                       # Pull the new image
                       echo "🐳 Docker Image Pull"
                       sudo docker pull taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}}
@@ -40,7 +41,10 @@ jobs:
                       echo "🐳 Docker Stop & Start"
                       sudo docker stop docent-front
                       sudo docker run --rm -d --name docent-front -p 80:80 taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}}
-
+                      
+                      echo "▶️ Restarting Nginx service"
+                      sudo systemctl start nginx || true
+                      
                       # Check
                       echo "🐳 Docker ps"
                       docker ps
