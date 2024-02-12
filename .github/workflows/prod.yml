@@ -39,7 +39,7 @@ jobs:
                       # Stop & Start
                       echo "🐳 Docker Stop & Start"
                       sudo docker stop docent-front
-                      docker run -d -p 80:80 --name docent-front taewan2002/docent-front:2024-02-12T20-45-59
+                      sudo docker run --rm -d --name docent-front -p 80:80 taewan2002/docent-front:${{steps.current-time.outputs.formattedTime}}
 
                       # Check
                       echo "🐳 Docker ps"
