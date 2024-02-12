@@ -21,8 +21,5 @@ FROM nginx:alpine
 # 빌드 결과물을 Nginx 서버의 root 디렉토리로 복사
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# 80번 포트 노출
-EXPOSE 80
-
 # Nginx 실행
 CMD ["nginx", "-g", "daemon off;"]
