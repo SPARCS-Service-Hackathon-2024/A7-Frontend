@@ -3,6 +3,10 @@ import styled, { keyframes } from 'styled-components';
 import chatProfile from '../assets/chatProfilePic.svg';
 import FirstModal from '../components/FirstModal';
 import SecondModal from '../components/SecondModal';
+import ThirdModal from '../components/ThirdModal';
+import FourthModal from '../components/FourthModal';
+import FifthModal from '../components/FifthModal';
+
 
 const StyledChat = styled.div`
   background-color: #EAE3FC;
@@ -81,6 +85,9 @@ const Chat = () => {
 
   const [selectedNumPeople, setSelectedNumPeople] = useState('');
   const [selectedNumWeek, setSelectedNumWeek] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedCar, setSelectedCar] = useState('');
+  const [selectedNumChild, setSelectedNumChild] = useState('');
 
   // chat 끝난 후
   const [firstEffectFinished, setFirstEffectFinished] = useState(false);
@@ -145,7 +152,22 @@ const Chat = () => {
 
   const handleSelectNumberOfWeek = (selection) => {
     setSelectedNumWeek(selection);
-    closeModalFirst();
+    closeModalSecond();
+  };
+
+  const handleSelectStatus = (selection) => {
+    setSelectedStatus(selection);
+    closeModalThird();
+  };
+
+  const handleSelectCar = (selection) => {
+    setSelectedCar(selection);
+    closeModalFourth();
+  };
+
+  const handleSelectNumberOfChild = (selection) => {
+    setSelectedNumChild(selection);
+    closeModalFifth();
   };
 
   const showModalSecond = () => {
@@ -161,7 +183,23 @@ const Chat = () => {
   };
 
   const closeModalThird = () => {
+    setModalOpenThird(false);
+  };
+
+  const showModalFourth = () => {
+    setModalOpenFourth(true);
+  };
+
+  const closeModalFourth = () => {
     setModalOpenFourth(false);
+  };
+
+  const showModalFifth = () => {
+    setModalOpenFifth(true);
+  };
+
+  const closeModalFifth = () => {
+    setModalOpenFifth(false);
   };
 
   useEffect(() => {
@@ -200,6 +238,7 @@ const Chat = () => {
     return () => clearInterval(intervalId);
   }, [secondIndex, firstEffectFinished, selectedNumPeople]);
 
+  // 3번째 대화
   useEffect(() => {
     if (!firstEffectFinished || !secondEffectFinished || !selectedNumPeople || !selectedNumWeek) 
       return;
@@ -209,6 +248,7 @@ const Chat = () => {
         if (thirdIndex === 1) {
           showModalThird();
           clearInterval(intervalId);
+          setThirdEffectFinished(true);
         } else {
           setThirdMessages(prevThirdMessages => [...prevThirdMessages, ThirdChatMessages[thirdIndex]]);
           setThirdIndex(prevThirdIndex => prevThirdIndex + 1);
@@ -218,6 +258,70 @@ const Chat = () => {
 
     return () => clearInterval(intervalId);
   }, [thirdIndex, secondEffectFinished, selectedNumWeek]);
+
+  // 4번째 대화
+  useEffect(() => {
+    if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !selectedNumPeople || !selectedNumWeek || !selectedStatus) 
+      return;
+
+    const intervalId = setInterval(() => {
+      if (fourthIndex <= FourthChatMessages.length) {
+        if (fourthIndex === 2) {
+          showModalFourth();
+          clearInterval(intervalId);
+          setFourthEffectFinished(true);
+        } else {
+          setFourthMessages(prevFourthMessages => [...prevFourthMessages, FourthChatMessages[fourthIndex]]);
+          setFourthIndex(prevFourthIndex => prevFourthIndex + 1);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [fourthIndex, thirdEffectFinished, selectedStatus]);
+
+  // 5번째 대화
+  useEffect(() => {
+    if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !fourthEffectFinished
+      || !selectedNumPeople || !selectedNumWeek || !selectedStatus || !selectedCar) 
+      return;
+
+    const intervalId = setInterval(() => {
+      if (fifthIndex <= FifthChatMessages.length) {
+        if (fifthIndex === 2) {
+          showModalFifth();
+          clearInterval(intervalId);
+          setFifthEffectFinished(true);
+        } else {
+          setFifthMessages(prevFifthMessages => [...prevFifthMessages, FifthChatMessages[fifthIndex]]);
+          setFifthIndex(prevFifthIndex => prevFifthIndex + 1);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [fifthIndex, fourthEffectFinished, selectedCar]);
+
+  // 6번째 대화
+  useEffect(() => {
+    if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !fourthEffectFinished || !fifthEffectFinished
+      || !selectedNumPeople || !selectedNumWeek || !selectedStatus || !selectedNumChild) 
+      return;
+
+    const intervalId = setInterval(() => {
+      if (finalIndex <= FinalChatMessages.length) {
+        if (finalIndex === 2) {
+          showModalFifth();
+        } else {
+          setFinalMessages(prevFinalMessages => [...prevFinalMessages, FinalChatMessages[finalIndex]]);
+          setFinalIndex(prevFinalIndex => prevFinalIndex + 1);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [finalIndex, fifthEffectFinished, selectedNumChild]);
+
 
   return (
     <ChatContainer>
@@ -235,6 +339,27 @@ const Chat = () => {
         {selectedNumWeek && <MyChatBubble>{`${selectedNumWeek} 지낼 예정이야`}</MyChatBubble>}
         
         {thirdMessages.map((message, idx) => (
+          <ChatBubble key={idx}>{message}</ChatBubble>
+        ))}
+        
+        {modalOpenThird && <ThirdModal isOpen={modalOpenThird} onRequestClose={closeModalThird} onSelectStatus={handleSelectStatus} />}
+        {selectedStatus && <MyChatBubble>{`나는 ${selectedStatus}이야`}</MyChatBubble>}
+
+        {fourthMessages.map((message, idx) => (
+          <ChatBubble key={idx}>{message}</ChatBubble>
+        ))}
+
+        {modalOpenFourth && <FourthModal isOpen={modalOpenFourth} onRequestClose={closeModalFourth} onSelectCar={handleSelectCar} />}
+        {selectedCar && <MyChatBubble>{`나는 ${selectedCar}`}</MyChatBubble>}
+
+        {fifthMessages.map((message, idx) => (
+          <ChatBubble key={idx}>{message}</ChatBubble>
+        ))}
+
+        {modalOpenFifth && <FifthModal isOpen={modalOpenFifth} onRequestClose={closeModalFifth} onSelectNumChild={handleSelectNumberOfChild} />}
+        {selectedNumChild && <MyChatBubble>{`나는 ${selectedNumChild}`}</MyChatBubble>}
+
+        {finalMessages.map((message, idx) => (
           <ChatBubble key={idx}>{message}</ChatBubble>
         ))}
 
