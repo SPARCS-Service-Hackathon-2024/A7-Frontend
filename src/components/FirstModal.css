@@ -1,13 +1,11 @@
 .Modal {
+    width: 393px;
+    height: auto;
     position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
     background: #fff;
     overflow: auto;
     outline: none;
-    padding: '20px';
+    padding: '30px';
 }
 
 .Overlay {
@@ -28,6 +26,7 @@
 
 .modal-button {
     background-color: #A883D8;
+    width: 168px;
     color: black;
     border: none;
     padding: 10px 20px;

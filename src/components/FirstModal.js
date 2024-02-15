@@ -7,8 +7,9 @@ const FirstModal = ({ isOpen, onRequestClose }) => {
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
-            contentLabel="Example Modal"
+            contentLabel="First Modal"
             className="Modal"
+            ariaHideApp={false}
             overlayClassName="Overlay"
         >
             <div className="modal-content">
