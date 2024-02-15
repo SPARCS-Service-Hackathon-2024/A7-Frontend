@@ -13,6 +13,7 @@ const Container = styled.div`
   height: 100vh;
   box-sizing: border-box;
   background-color: #a883d8;
+  padding-bottom: 20px; /* 추가: 하단 여백을 위해 */
 `;
 
 const LogoImage = styled.img`
@@ -25,8 +26,7 @@ const LogoImage = styled.img`
 `;
 
 const Button = styled.button`
-  position: absolute;
-  bottom: 20px;
+  margin-top: auto; /* 추가: 자동 마진을 통해 하단에 배치 */
   background-color: #ffffff;
   width: 80%;
   height: 45px;
