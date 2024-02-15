@@ -11,19 +11,19 @@
 @media all and (max-width: 390px) {
   body {
     width: 100%;
-    background: #efefef;
-    padding-top: env(safe-area-inset-top);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
+    height: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    --v-scrollbar-offset: 0 !important;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    touch-action: manipulation; /* 핀치 줌 등의 제스처 방지 */
   }
 
   .container {
     width: 100%;
-    padding-top: env(safe-area-inset-top);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
   }
 }
 
@@ -35,10 +35,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  padding-top: env(safe-area-inset-top);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
 }
 
 .App-link {
