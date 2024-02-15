@@ -4,11 +4,10 @@ import './App.css';
 import OnBoarding from './pages/OnBoarding';
 import Register from './pages/Register';
 import Chat from './pages/Chat';
-import List from './pages/List';
+import ListPage from './pages/ListPage';
+import MyPage from './pages/MyPage';
 
 function App() {
-  const [user, setUser] = useState({ userName: ''});
-  
   return (
     <div className="App">
       <Router>
@@ -16,7 +15,8 @@ function App() {
           <Route path="/" element={<OnBoarding />} />
           <Route path="register" element={<Register />}/>
           <Route path="chat" element={<Chat />} />
-          <Route path="list" element={<List />} />
+          <Route path="list" element={<ListPage />} />
+          <Route path="mypage" element={<MyPage/>} />
         </Routes>
       </Router>
     </div>
