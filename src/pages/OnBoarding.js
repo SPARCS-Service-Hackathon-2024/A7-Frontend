@@ -37,6 +37,9 @@ const Button = styled.button`
   border: none;
   border-radius: 16px;
   cursor: pointer;
+    padding-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    
 `;
 
 const OnBoarding = () => {
