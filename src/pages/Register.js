@@ -121,7 +121,7 @@ const Register = () => {
   };
 
   const goChat = () => {
-    navigator('/chat');
+    navigator('/list');
   };
   const isFormValid = nickname && password;
 
