@@ -109,7 +109,7 @@ const Register = () => {
       
       if (response.success) {
         localStorage.setItem('token', response.data.access_token);
-        console.log(response.data.access_token)
+        localStorage.setItem('nickname', nickname);
         goChat();
       } else {
         alert(response.message);
