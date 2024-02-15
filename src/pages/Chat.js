@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import chatProfile from '../assets/chatProfilePic.svg';
 import FirstModal from '../components/FirstModal';
+import SecondModal from '../components/SecondModal';
 
 const StyledChat = styled.div`
   background-color: #EAE3FC;
@@ -35,6 +36,7 @@ const MyChatBubble = styled.div`
   animation: ${slideIn} 0.5s ease-out;
   opacity: 0;
   animation-fill-mode: forwards;
+  margin-left: auto;
   `;
 
 const ChatBubble = styled.div`
@@ -53,25 +55,40 @@ const ChatContainer = styled.div`
 `;
 
 
-
 const Chat = () => {
   const [nickname, setNickname] = useState('');
-  const [messages, setMessages] = useState([]);
 
+  const [messages, setMessages] = useState([]);
   const [secondMessages, setSecondMessages] = useState([]);
+  const [thirdMessages, setThirdMessages] = useState([]);
+  const [fourthMessages, setFourthMessages] = useState([]);
+  const [fifthMessages, setFifthMessages] = useState([]);
+  const [finalMessages, setFinalMessages] = useState([]);
 
   const [index, setIndex] = useState(0);
   const [secondIndex, setSecondIndex] = useState(0);
+  const [thirdIndex, setThirdIndex] = useState(0);
+  const [fourthIndex, setFourthIndex] = useState(0);
+  const [fifthIndex, setFifthIndex] = useState(0);
+  const [finalIndex, setFinalIndex] = useState(0);
 
   const [modalOpenFirst, setModalOpenFirst] = useState(false);
   const [modalOpenSecond, setModalOpenSecond] = useState(false);
+  const [modalOpenThird, setModalOpenThird] = useState(false);
+  const [modalOpenFourth, setModalOpenFourth] = useState(false);
+  const [modalOpenFifth, setModalOpenFifth] = useState(false);
+  const [modalOpenFinal, setModalOpenFinal] = useState(false);
 
   const [selectedNumPeople, setSelectedNumPeople] = useState('');
+  const [selectedNumWeek, setSelectedNumWeek] = useState('');
 
   // chat 끝난 후
   const [firstEffectFinished, setFirstEffectFinished] = useState(false);
   const [secondEffectFinished, setSecondEffectFinished] = useState(false);
   const [thirdEffectFinished, setThirdEffectFinished] = useState(false);
+  const [fourthEffectFinished, setFourthEffectFinished] = useState(false);
+  const [fifthEffectFinished, setFifthEffectFinished] = useState(false);
+  const [finalEffectFinished, setFinalEffectFinished] = useState(false);
 
 
   useEffect(() => {
@@ -126,12 +143,25 @@ const Chat = () => {
     closeModalFirst();
   };
 
+  const handleSelectNumberOfWeek = (selection) => {
+    setSelectedNumWeek(selection);
+    closeModalFirst();
+  };
+
   const showModalSecond = () => {
     setModalOpenSecond(true);
   };
 
   const closeModalSecond = () => {
     setModalOpenSecond(false);
+  };
+
+  const showModalThird = () => {
+    setModalOpenThird(true);
+  };
+
+  const closeModalThird = () => {
+    setModalOpenFourth(false);
   };
 
   useEffect(() => {
@@ -159,6 +189,7 @@ const Chat = () => {
         if (secondIndex === 2) {
           showModalSecond();
           clearInterval(intervalId);
+          setSecondEffectFinished(true);
         } else {
           setSecondMessages(prevSecondMessages => [...prevSecondMessages, SecondChatMessages[secondIndex]]);
           setSecondIndex(prevSecondIndex => prevSecondIndex + 1);
@@ -169,6 +200,24 @@ const Chat = () => {
     return () => clearInterval(intervalId);
   }, [secondIndex, firstEffectFinished, selectedNumPeople]);
 
+  useEffect(() => {
+    if (!firstEffectFinished || !secondEffectFinished || !selectedNumPeople || !selectedNumWeek) 
+      return;
+
+    const intervalId = setInterval(() => {
+      if (thirdIndex <= ThirdChatMessages.length) {
+        if (thirdIndex === 1) {
+          showModalThird();
+          clearInterval(intervalId);
+        } else {
+          setThirdMessages(prevThirdMessages => [...prevThirdMessages, ThirdChatMessages[thirdIndex]]);
+          setThirdIndex(prevThirdIndex => prevThirdIndex + 1);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [thirdIndex, secondEffectFinished, selectedNumWeek]);
 
   return (
     <ChatContainer>
@@ -182,6 +231,13 @@ const Chat = () => {
         {secondMessages.map((message, idx) => (
           <ChatBubble key={idx}>{message}</ChatBubble>
         ))}
+        {modalOpenSecond && <SecondModal isOpen={modalOpenSecond} onRequestClose={closeModalSecond} onSelectNumberOfWeek={handleSelectNumberOfWeek} />}
+        {selectedNumWeek && <MyChatBubble>{`${selectedNumWeek} 지낼 예정이야`}</MyChatBubble>}
+        
+        {thirdMessages.map((message, idx) => (
+          <ChatBubble key={idx}>{message}</ChatBubble>
+        ))}
+
       </StyledChat>
     </ChatContainer>
   );
