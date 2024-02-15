@@ -1,0 +1,43 @@
+.Modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background: #fff;
+    overflow: auto;
+    outline: none;
+    padding: '20px';
+}
+
+.Overlay {
+    position: 'fixed';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.modal-button {
+    background-color: #A883D8;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-button.selected {
+    background-color: #9A8CFF;
+}
