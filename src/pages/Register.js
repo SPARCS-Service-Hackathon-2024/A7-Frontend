@@ -65,10 +65,14 @@ const Button = styled.button`
   color: #fff;
   font-family: 'Pretendard', sans-serif;
   font-weight: 600;
+  font-size: 14px;
   border: none;
   border-radius: 16px;
   margin: 4vh auto;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:disabled {
     background-color: #ccc;
