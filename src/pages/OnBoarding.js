@@ -1,6 +1,19 @@
-import React ,{useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100vh;
+`;
+
 
 const OnBoarding = () => {
   const navigator=useNavigate();
@@ -9,9 +22,9 @@ const OnBoarding = () => {
   }
 
   return (
-    <div>
+    <Container>
       <Button onClick={goSignUp} title="살아봐유 시작하기" />
-    </div>
+    </Container>
   )
 };
 
