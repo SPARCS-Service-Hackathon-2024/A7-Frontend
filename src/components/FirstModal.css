@@ -1,7 +1,6 @@
 .Modal {
-    width: 393px;
+    width: 100%;
     height: auto;
-    position: absolute;
     background: #fff;
     overflow: auto;
     outline: none;
@@ -17,13 +16,12 @@
 }
 
 .modal-content {
-    width: 100%;
+    display: block;
     text-align: center;
 }
 
 .button-container {
-    align-items: center;
-    width: 100%;
+    display: block;
 }
 
 .modal-button {

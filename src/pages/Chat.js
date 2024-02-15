@@ -313,7 +313,7 @@ const Chat = () => {
 
     const intervalId = setInterval(() => {
       if (finalIndex <= FinalChatMessages.length) {
-        if (finalIndex === 2) {
+        if (finalIndex === 4) {
           clearInterval(intervalId);
           setIsWaitingForInput(true);
         } else {
