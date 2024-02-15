@@ -1,10 +1,11 @@
 .header {
     background-color: white;
     color: black;
-    padding: 19px;
     font-family: 'Pretendard', sans-serif;
     text-align: center;
-    height: 44px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
 }
 
 .header ul {
