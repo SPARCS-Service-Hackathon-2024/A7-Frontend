@@ -1,6 +1,7 @@
 .Modal {
-    width: 100%;
+    width: 110px;
     height: auto;
+    position: absolute;
     background: #fff;
     overflow: auto;
     outline: none;
@@ -16,22 +17,21 @@
 }
 
 .modal-content {
-    display: block;
     text-align: center;
 }
 
 .button-container {
-    display: block;
+    align-items: center;
 }
 
 .modal-button {
     background-color: #EAE3FC;
-    width: 168px;
+    width: 107px;
     color: black;
     border: none;
     padding: 10px 20px;
     margin: 10px;
-    border-radius: 44px;
+    border-radius: 20px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
