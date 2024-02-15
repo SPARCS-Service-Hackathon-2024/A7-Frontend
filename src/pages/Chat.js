@@ -6,18 +6,23 @@ import SecondModal from '../components/SecondModal';
 import ThirdModal from '../components/ThirdModal';
 import FourthModal from '../components/FourthModal';
 import FifthModal from '../components/FifthModal';
+import '../css/chat.css';
+import ChatProfile from '../assets/message-circle.svg';
 
 
 const StyledChat = styled.div`
-  background-color: #EAE3FC;
+  background-color: #F2E7F9;
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   text-align: left;
   font-family: 'Pretendard', sans-serif;
 `;
+
+
+
 
 const slideIn = keyframes`
   from {
@@ -35,22 +40,26 @@ const MyChatBubble = styled.div`
   color: #FFFFFF;
   padding: 10px 20px;
   border-radius: 20px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   max-width: 70%;
   animation: ${slideIn} 0.5s ease-out;
+  text-align: right;
+  display: inline-block;
   opacity: 0;
   animation-fill-mode: forwards;
-  margin-left: auto;
-  `;
+`;
+
 
 const ChatBubble = styled.div`
   background-color: #ffffff;
   padding: 10px 20px;
-  border-radius: 20px;
-  margin-bottom: 10px;
+  border-radius: 13.5px;
+  margin-top: 10px;
   max-width: 70%;
+  display: inline-block;
   animation: ${slideIn} 0.5s ease-out;
   opacity: 0;
+  font-size: 14px;
   animation-fill-mode: forwards;
 `;
 
@@ -89,7 +98,7 @@ const Chat = () => {
   const [selectedCar, setSelectedCar] = useState('');
   const [selectedNumChild, setSelectedNumChild] = useState('');
 
-  // chat 끝난 후
+  // chat.css 끝난 후
   const [firstEffectFinished, setFirstEffectFinished] = useState(false);
   const [secondEffectFinished, setSecondEffectFinished] = useState(false);
   const [thirdEffectFinished, setThirdEffectFinished] = useState(false);
@@ -103,7 +112,12 @@ const Chat = () => {
     if (storedNickname) {
       setNickname(storedNickname);
     }
-  }, []);
+    const chatbox = document.querySelector('.message-container'); // chatbox 클래스를 가진 요소 선택
+    if (chatbox) {
+      chatbox.scrollTop = chatbox.scrollHeight; // 스크롤을 맨 아래로 이동
+    }
+
+  }, [messages]);
 
   const FirstChatMessages = [
     '살아봐유에 오신걸 환영해요!',
@@ -328,47 +342,123 @@ const Chat = () => {
 
 
 return (
-  <ChatContainer>
-    <StyledChat>
-      {messages.map((message, idx) => (
-        <ChatBubble key={idx}>{message}</ChatBubble>
-      ))}
-      {selectedNumPeople && <MyChatBubble>{`${selectedNumPeople}이 살거야`}</MyChatBubble>}
-      {modalOpenFirst && <FirstModal isOpen={modalOpenFirst} onRequestClose={closeModalFirst} onSelectNumberOfPeople={handleSelectNumberOfPeople} />}
+    <ChatContainer>
+      <StyledChat>
 
-      {secondMessages.map((message, idx) => (
-        <ChatBubble key={idx}>{message}</ChatBubble>
-      ))}
-      {modalOpenSecond && <SecondModal isOpen={modalOpenSecond} onRequestClose={closeModalSecond} onSelectNumberOfWeek={handleSelectNumberOfWeek} />}
-      {selectedNumWeek && <MyChatBubble>{`${selectedNumWeek}일 지낼 예정이야`}</MyChatBubble>}
+        <div className="chatbox">
+          {messages.map((message, idx) => (
+              <div key={idx} className="message-container">
+                {idx === 0 ? (
+                    <img className="chat-profile" src={chatProfile} alt="Profile"/>
+                ) : (
+                    <div className="transparent-div"></div>
+                )}
+                <ChatBubble>{message}</ChatBubble>
+              </div>
+          ))}
+        </div>
 
-      {thirdMessages.map((message, idx) => (
-        <ChatBubble key={idx}>{message}</ChatBubble>
-      ))}
+        <div className="my-chat-container">
+          {selectedNumPeople && <MyChatBubble>{`${selectedNumPeople}이 살거야`}</MyChatBubble>}
+        </div>
+        {modalOpenFirst && <FirstModal isOpen={modalOpenFirst} onRequestClose={closeModalFirst}
+                                       onSelectNumberOfPeople={handleSelectNumberOfPeople}/>}
 
-      {modalOpenThird && <ThirdModal isOpen={modalOpenThird} onRequestClose={closeModalThird} onSelectStatus={handleSelectStatus} />}
-      {selectedStatus && <MyChatBubble>{`나는 ${selectedStatus}이야`}</MyChatBubble>}
+        <div className="chatbox">
+          {secondMessages.map((message, idx) => (
+              <div key={idx} className="message-container">
+                {idx === 0 ? (
+                    <img className="chat-profile" src={chatProfile} alt="Profile"/>
+                ) : (
+                    <div className="transparent-div"></div>
+                )}
+                <ChatBubble>{message}</ChatBubble>
+              </div>
+          ))}
+        </div>
 
-      {fourthMessages.map((message, idx) => (
-        <ChatBubble key={idx}>{message}</ChatBubble>
-      ))}
+        {modalOpenSecond && <SecondModal isOpen={modalOpenSecond} onRequestClose={closeModalSecond}
+                                         onSelectNumberOfWeek={handleSelectNumberOfWeek}/>}
+        <div className="my-chat-container">
+          {selectedNumWeek && <MyChatBubble>{`${selectedNumWeek}일 지낼 예정이야`}</MyChatBubble>}
+        </div>
 
-      {modalOpenFourth && <FourthModal isOpen={modalOpenFourth} onRequestClose={closeModalFourth} onSelectCar={handleSelectCar} />}
-      {selectedCar === '있다' ? <MyChatBubble>나는 주로 운전해서 다녀</MyChatBubble> : selectedCar === '없다' ? <MyChatBubble>나는 주로 대중교통을 이용해</MyChatBubble> : null}
+        <div className="chatbox">
+          {thirdMessages.map((message, idx) => (
+              <div key={idx} className="message-container">
+                {idx === 0 ? (
+                    <img className="chat-profile" src={chatProfile} alt="Profile"/>
+                ) : (
+                    <div className="transparent-div"></div>
+                )}
+                <ChatBubble>{message}</ChatBubble>
+              </div>
+          ))}
+        </div>
 
-      {fifthMessages.map((message, idx) => (
-        <ChatBubble key={idx}>{message}</ChatBubble>
-      ))}
+        {modalOpenThird &&
+            <ThirdModal isOpen={modalOpenThird} onRequestClose={closeModalThird}
+                        onSelectStatus={handleSelectStatus}/>}
 
-      {modalOpenFifth && <FifthModal isOpen={modalOpenFifth} onRequestClose={closeModalFifth} onSelectNumChild={handleSelectNumberOfChild} />}
-      {selectedNumChild === '그렇다' ? <MyChatBubble>응, 아이가 있어</MyChatBubble> : selectedNumChild === '아니다' ? <MyChatBubble>아니, 아이가 없어</MyChatBubble> : null}
+        <div className="my-chat-container">
+          {selectedStatus && <MyChatBubble>{`나는 ${selectedStatus}이야`}</MyChatBubble>}
+        </div>
 
-      {finalMessages.map((message, idx) => (
-        <ChatBubble key={idx}>{message}</ChatBubble>
-      ))}
+        <div className="chatbox">
+          {fourthMessages.map((message, idx) => (
+              <div key={idx} className="message-container">
+                {idx === 0 ? (
+                    <img className="chat-profile" src={chatProfile} alt="Profile"/>
+                ) : (
+                    <div className="transparent-div"></div>
+                )}
+                <ChatBubble>{message}</ChatBubble>
+              </div>
+          ))}
+        </div>
 
-    </StyledChat>
-  </ChatContainer>
+        {modalOpenFourth &&
+            <FourthModal isOpen={modalOpenFourth} onRequestClose={closeModalFourth} onSelectCar={handleSelectCar}/>}
+        <div className="my-chat-container">
+          {selectedCar === '있다' ? <MyChatBubble>나는 주로 운전해서 다녀</MyChatBubble> : selectedCar === '없다' ?
+              <MyChatBubble>나는 주로 대중교통을 이용해</MyChatBubble> : null}
+        </div>
+
+        <div className="chatbox">
+          {fifthMessages.map((message, idx) => (
+              <div key={idx} className="message-container">
+                {idx === 0 ? (
+                    <img className="chat-profile" src={chatProfile} alt="Profile"/>
+                ) : (
+                    <div className="transparent-div"></div>
+                )}
+                <ChatBubble>{message}</ChatBubble>
+              </div>
+          ))}
+        </div>
+
+        {modalOpenFifth && <FifthModal isOpen={modalOpenFifth} onRequestClose={closeModalFifth}
+                                       onSelectNumChild={handleSelectNumberOfChild}/>}
+        <div className="my-chat-container">
+        {selectedNumChild === '그렇다' ? <MyChatBubble>응, 아이가 있어</MyChatBubble> : selectedNumChild === '아니다' ?
+            <MyChatBubble>아니, 아이가 없어</MyChatBubble> : null}
+        </div>
+
+        <div className="chatbox">
+          {finalMessages.map((message, idx) => (
+              <div key={idx} className="message-container">
+                {idx === 0 ? (
+                    <img className="chat-profile" src={chatProfile} alt="Profile"/>
+                ) : (
+                    <div className="transparent-div"></div>
+                )}
+                <ChatBubble>{message}</ChatBubble>
+              </div>
+          ))}
+        </div>
+
+      </StyledChat>
+    </ChatContainer>
 );
 }
 

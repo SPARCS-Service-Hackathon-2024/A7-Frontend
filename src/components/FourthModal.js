@@ -2,15 +2,15 @@ import React from 'react';
 import Modal from 'react-modal';
 import './FourthModal.css';
 
-const FirstModal = ({ isOpen, onRequestClose, onSelectCar }) => {
+const FirstModal = ({ isOpen, onSelectCar }) => {
     return (
         <Modal
             isOpen={isOpen}
-            onRequestClose={onRequestClose}
             contentLabel="Fourth Modal"
             className="Modal"
             overlayClassName="Overlay"
             ariaHideApp={false}
+            shouldCloseOnOverlayClick={false}
         >
             <div className="modal-content">
                 <div className="button-container">
