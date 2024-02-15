@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Pretendard from '../fonts/fonts.css';
+import { login } from '../services/login';
 
 const Container = styled.div`
   width: 100%;
@@ -85,6 +86,13 @@ const Register = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigator('/list');
+    }
+  }, []); // 빈 배열을 전달하여 컴포넌트가 처음 렌더링될 때만 실행
+
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
@@ -95,8 +103,21 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // 로그인처리
-    goChat();
+    
+    try {
+      const response = await login(nickname, password);
+      
+      if (response.success) {
+        localStorage.setItem('token', response.data.access_token);
+        console.log(response.data.access_token)
+        goChat();
+      } else {
+        alert(response.message);
+      }
+    } catch (error) {
+      console.error('로그인 요청 중 오류 발생:', error);
+      alert('로그인 중 오류가 발생했습니다.');
+    }
   };
 
   const goChat = () => {
