@@ -5,8 +5,17 @@ import Pretendard from '../fonts/fonts.css';
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 102px;
-  box-sizing: border-box;
+  display: flex;
+  padding-top: 102px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Label = styled.label`
@@ -19,7 +28,7 @@ const Label = styled.label`
 `;
 
 const InputContainer = styled.div`
-  margin: 16px;
+  padding: 0 16px 0 16px;
 `;
 
 const Input = styled.input`
@@ -50,17 +59,16 @@ const Message = styled.p`
 `;
 
 const Button = styled.button`
-  width: 100%;
-  height: 44px;
-  padding: 12px;
   background-color: #864AE1;
+  width: 80%;
+  height: 45px;
   color: #fff;
   font-family: 'Pretendard', sans-serif;
   font-weight: 600;
   border: none;
   border-radius: 16px;
+  margin: 4vh auto;
   cursor: pointer;
-  margin: 16px;
 
   &:disabled {
     background-color: #ccc;
@@ -94,7 +102,7 @@ const Register = () => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <InputContainer>
           <Label>회원이신가요?{'\n'}닉네임과 비밀번호를 입력해주세요</Label>
           <Input
@@ -116,7 +124,7 @@ const Register = () => {
           <Message>회원이 아니시라면 자동으로 회원가입을 진행합니다</Message>
         </InputContainer>
         <Button type="submit" disabled={!isFormValid}>로그인하기</Button>
-      </form>
+      </Form>
     </Container>
   );
 };

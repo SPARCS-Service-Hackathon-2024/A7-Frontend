@@ -27,19 +27,6 @@
   }
 }
 
-/* desktop: 391px~ */
-@media all and (min-width: 391px) {
-  body {
-    width: 35vw;
-    margin: 0 auto;
-    background: #efefef; /* Ensure background consistency */
-  }
-
-  .content-div {
-    background: #efefef;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

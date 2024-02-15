@@ -5,7 +5,7 @@ import Pretendard from '../fonts/fonts.css';
 const StyledButton = styled.div`
   background-color: #864AE1;
   color: #FFFFFF;
-  width: 350px;
+  width: 80%;
   height: 45px;
   border-radius: 16px;
   display: flex;
