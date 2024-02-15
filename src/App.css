@@ -7,9 +7,27 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* mobile: 0~390px */
+@media all and (max-width: 500px) {
+  body {
+    width: 100%;
+    background: #efefef;
+  }
+
+  .container {
+    width: 100%;
+  }
+}
+
+/* desktop: 391px~ */
+@media all and (min-width: 391px) {
+  body {
+    width: 35vw;
+    margin: 0 auto;
+  }
+
+  .content-div {
+    background: #efefef;
   }
 }
 
