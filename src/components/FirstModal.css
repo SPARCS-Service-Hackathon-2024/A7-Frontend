@@ -17,21 +17,23 @@
 }
 
 .modal-content {
+    width: 100%;
     text-align: center;
 }
 
 .button-container {
-    margin-top: 20px;
+    align-items: center;
+    width: 100%;
 }
 
 .modal-button {
-    background-color: #A883D8;
+    background-color: #EAE3FC;
     width: 168px;
     color: black;
     border: none;
     padding: 10px 20px;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 44px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;

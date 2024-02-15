@@ -14,8 +14,8 @@ const FirstModal = ({ isOpen, onRequestClose, onSelectNumChild }) => {
         >
             <div className="modal-content">
                 <div className="button-container">
-                    <button onClick={() => onSelectNumChild('1명')} className="modal-button">1명</button>
-                    <button onClick={() => onSelectNumChild('2명')} className="modal-button">2명</button>
+                    <button onClick={() => onSelectNumChild('그렇다')} className="modal-button">그렇다</button>
+                    <button onClick={() => onSelectNumChild('아니다')} className="modal-button">아니다</button>
                 </div>
             </div>
         </Modal>

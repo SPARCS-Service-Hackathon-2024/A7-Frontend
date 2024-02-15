@@ -240,7 +240,7 @@ const Chat = () => {
 
   // 3번째 대화
   useEffect(() => {
-    if (!firstEffectFinished || !secondEffectFinished || !selectedNumPeople || !selectedNumWeek) 
+    if (!firstEffectFinished || !secondEffectFinished || !selectedNumPeople || !selectedNumWeek)
       return;
 
     const intervalId = setInterval(() => {
@@ -261,7 +261,7 @@ const Chat = () => {
 
   // 4번째 대화
   useEffect(() => {
-    if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !selectedNumPeople || !selectedNumWeek || !selectedStatus) 
+    if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !selectedNumPeople || !selectedNumWeek || !selectedStatus)
       return;
 
     const intervalId = setInterval(() => {
@@ -283,7 +283,7 @@ const Chat = () => {
   // 5번째 대화
   useEffect(() => {
     if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !fourthEffectFinished
-      || !selectedNumPeople || !selectedNumWeek || !selectedStatus || !selectedCar) 
+      || !selectedNumPeople || !selectedNumWeek || !selectedStatus || !selectedCar)
       return;
 
     const intervalId = setInterval(() => {
@@ -303,15 +303,19 @@ const Chat = () => {
   }, [fifthIndex, fourthEffectFinished, selectedCar]);
 
   // 6번째 대화
+  const [isWaitingForInput, setIsWaitingForInput] = useState(false);
+  const [userInput, setUserInput] = useState("");
+
   useEffect(() => {
     if (!firstEffectFinished || !secondEffectFinished || !thirdEffectFinished || !fourthEffectFinished || !fifthEffectFinished
-      || !selectedNumPeople || !selectedNumWeek || !selectedStatus || !selectedNumChild) 
+      || !selectedNumPeople || !selectedNumWeek || !selectedStatus || !selectedNumChild || isWaitingForInput)
       return;
 
     const intervalId = setInterval(() => {
       if (finalIndex <= FinalChatMessages.length) {
         if (finalIndex === 2) {
-          showModalFifth();
+          clearInterval(intervalId);
+          setIsWaitingForInput(true);
         } else {
           setFinalMessages(prevFinalMessages => [...prevFinalMessages, FinalChatMessages[finalIndex]]);
           setFinalIndex(prevFinalIndex => prevFinalIndex + 1);
@@ -320,52 +324,52 @@ const Chat = () => {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [finalIndex, fifthEffectFinished, selectedNumChild]);
+  }, [finalIndex, fifthEffectFinished, selectedNumChild, isWaitingForInput]);
 
 
-  return (
-    <ChatContainer>
-      <StyledChat>
-        {messages.map((message, idx) => (
-          <ChatBubble key={idx}>{message}</ChatBubble>
-        ))}
-        {selectedNumPeople && <MyChatBubble>{`${selectedNumPeople}이 살거야`}</MyChatBubble>}
-        {modalOpenFirst && <FirstModal isOpen={modalOpenFirst} onRequestClose={closeModalFirst} onSelectNumberOfPeople={handleSelectNumberOfPeople} />}
+return (
+  <ChatContainer>
+    <StyledChat>
+      {messages.map((message, idx) => (
+        <ChatBubble key={idx}>{message}</ChatBubble>
+      ))}
+      {selectedNumPeople && <MyChatBubble>{`${selectedNumPeople}이 살거야`}</MyChatBubble>}
+      {modalOpenFirst && <FirstModal isOpen={modalOpenFirst} onRequestClose={closeModalFirst} onSelectNumberOfPeople={handleSelectNumberOfPeople} />}
 
-        {secondMessages.map((message, idx) => (
-          <ChatBubble key={idx}>{message}</ChatBubble>
-        ))}
-        {modalOpenSecond && <SecondModal isOpen={modalOpenSecond} onRequestClose={closeModalSecond} onSelectNumberOfWeek={handleSelectNumberOfWeek} />}
-        {selectedNumWeek && <MyChatBubble>{`${selectedNumWeek} 지낼 예정이야`}</MyChatBubble>}
-        
-        {thirdMessages.map((message, idx) => (
-          <ChatBubble key={idx}>{message}</ChatBubble>
-        ))}
-        
-        {modalOpenThird && <ThirdModal isOpen={modalOpenThird} onRequestClose={closeModalThird} onSelectStatus={handleSelectStatus} />}
-        {selectedStatus && <MyChatBubble>{`나는 ${selectedStatus}이야`}</MyChatBubble>}
+      {secondMessages.map((message, idx) => (
+        <ChatBubble key={idx}>{message}</ChatBubble>
+      ))}
+      {modalOpenSecond && <SecondModal isOpen={modalOpenSecond} onRequestClose={closeModalSecond} onSelectNumberOfWeek={handleSelectNumberOfWeek} />}
+      {selectedNumWeek && <MyChatBubble>{`${selectedNumWeek}일 지낼 예정이야`}</MyChatBubble>}
 
-        {fourthMessages.map((message, idx) => (
-          <ChatBubble key={idx}>{message}</ChatBubble>
-        ))}
+      {thirdMessages.map((message, idx) => (
+        <ChatBubble key={idx}>{message}</ChatBubble>
+      ))}
 
-        {modalOpenFourth && <FourthModal isOpen={modalOpenFourth} onRequestClose={closeModalFourth} onSelectCar={handleSelectCar} />}
-        {selectedCar && <MyChatBubble>{`나는 ${selectedCar}`}</MyChatBubble>}
+      {modalOpenThird && <ThirdModal isOpen={modalOpenThird} onRequestClose={closeModalThird} onSelectStatus={handleSelectStatus} />}
+      {selectedStatus && <MyChatBubble>{`나는 ${selectedStatus}이야`}</MyChatBubble>}
 
-        {fifthMessages.map((message, idx) => (
-          <ChatBubble key={idx}>{message}</ChatBubble>
-        ))}
+      {fourthMessages.map((message, idx) => (
+        <ChatBubble key={idx}>{message}</ChatBubble>
+      ))}
 
-        {modalOpenFifth && <FifthModal isOpen={modalOpenFifth} onRequestClose={closeModalFifth} onSelectNumChild={handleSelectNumberOfChild} />}
-        {selectedNumChild && <MyChatBubble>{`나는 ${selectedNumChild}`}</MyChatBubble>}
+      {modalOpenFourth && <FourthModal isOpen={modalOpenFourth} onRequestClose={closeModalFourth} onSelectCar={handleSelectCar} />}
+      {selectedCar === '있다' ? <MyChatBubble>나는 주로 운전해서 다녀</MyChatBubble> : selectedCar === '없다' ? <MyChatBubble>나는 주로 대중교통을 이용해</MyChatBubble> : null}
 
-        {finalMessages.map((message, idx) => (
-          <ChatBubble key={idx}>{message}</ChatBubble>
-        ))}
+      {fifthMessages.map((message, idx) => (
+        <ChatBubble key={idx}>{message}</ChatBubble>
+      ))}
 
-      </StyledChat>
-    </ChatContainer>
-  );
+      {modalOpenFifth && <FifthModal isOpen={modalOpenFifth} onRequestClose={closeModalFifth} onSelectNumChild={handleSelectNumberOfChild} />}
+      {selectedNumChild === '그렇다' ? <MyChatBubble>응, 아이가 있어</MyChatBubble> : selectedNumChild === '아니다' ? <MyChatBubble>아니, 아이가 없어</MyChatBubble> : null}
+
+      {finalMessages.map((message, idx) => (
+        <ChatBubble key={idx}>{message}</ChatBubble>
+      ))}
+
+    </StyledChat>
+  </ChatContainer>
+);
 }
 
 export default Chat;
