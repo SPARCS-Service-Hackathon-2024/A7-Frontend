@@ -14,7 +14,7 @@ const StyledButton = styled.div`
   margin: 4vh auto;
   cursor: pointer;
   font-family: 'Pretendard';
-  font-weight: 400;
+  font-weight: 500;
 `;
 
 const Button = (props) => {

@@ -42,7 +42,7 @@ const Input = styled.input`
 const Message = styled.p`
   margin-top: 10px;
   font-family: 'Pretendard', sans-serif;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 14px;
   display: block;
   text-align: left;

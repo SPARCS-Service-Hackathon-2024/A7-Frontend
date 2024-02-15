@@ -8,14 +8,22 @@
 }
 
 /* mobile: 0~390px */
-@media all and (max-width: 500px) {
+@media all and (max-width: 390px) {
   body {
     width: 100%;
     background: #efefef;
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
   }
 
   .container {
     width: 100%;
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
   }
 }
 
@@ -24,6 +32,7 @@
   body {
     width: 35vw;
     margin: 0 auto;
+    background: #efefef; /* Ensure background consistency */
   }
 
   .content-div {
@@ -40,6 +49,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
 }
 
 .App-link {
