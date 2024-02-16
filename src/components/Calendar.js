@@ -21,6 +21,7 @@ const CalendarImage = styled.img`
 const Label = styled.label`
     font-family: 'Pretendard', sans-serif;
     font-weight: 500;
+    margin-bottom: 12;
 `;
 
 const CalendarLabelContainer = styled.div`

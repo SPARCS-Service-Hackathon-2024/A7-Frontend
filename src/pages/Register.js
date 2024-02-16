@@ -19,21 +19,9 @@ const Form = styled.form`
   align-items: center;
 `;
 
-const Label = styled.label`
-  display: block;
-  margin-bottom: 10px;
-  font-family: 'Pretendard', sans-serif;
-  white-space: pre-wrap;
-  word-break: break-word;
-  text-align: left;
-`;
-
-const InputContainer = styled.div`
-  padding: 0 16px 0 16px;
-`;
 
 const Input = styled.input`
-  width: 100%;
+  width: 80%;
   padding: 10px 0;
   margin-bottom: 10px;
   border: none;
@@ -49,15 +37,32 @@ const Input = styled.input`
   }
 `;
 
+const Label = styled.label`
+  width: 80%; // Match the Input width
+  display: block;
+  margin-bottom: 10px;
+  font-family: 'Pretendard', sans-serif;
+  white-space: pre-wrap;
+  word-break: break-word;
+  text-align: left;
+  padding-bottom: 48px;
+  margin-left: auto; // Center alignment
+  margin-right: auto; // Center alignment
+`;
+
 const Message = styled.p`
-  margin-top: 10px;
+  width: 80%; // Match the Input width
+  margin-bottom: 106px;
   font-family: 'Pretendard', sans-serif;
   font-weight: 400;
   font-size: 14px;
   display: block;
   text-align: left;
   margin-top: 16px;
+  margin-left: auto; // Center alignment
+  margin-right: auto; // Center alignment
 `;
+
 
 const Button = styled.button`
   background-color: #864AE1;
@@ -69,7 +74,6 @@ const Button = styled.button`
   font-size: 14px;
   border: none;
   border-radius: 16px;
-  margin: 4vh auto;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -103,10 +107,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await login(nickname, password);
-      
+
       if (response.success) {
         localStorage.setItem('token', response.data.access_token);
         localStorage.setItem('nickname', nickname);
@@ -128,26 +132,24 @@ const Register = () => {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <InputContainer>
-          <Label>회원이신가요?{'\n'}닉네임과 비밀번호를 입력해주세요</Label>
-          <Input
-            id="nickname"
-            type="text"
-            placeholder="닉네임을 입력해주세요"
-            value={nickname}
-            onChange={handleNicknameChange}
-            required
-          />
-          <Input
-            id="password"
-            type="password"
-            placeholder="비밀번호를 입력해주세요"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-          <Message>회원이 아니시라면 자동으로 회원가입을 진행합니다</Message>
-        </InputContainer>
+        <Label>회원이신가요?{'\n'}닉네임과 비밀번호를 입력해주세요</Label>
+        <Input
+          id="nickname"
+          type="text"
+          placeholder="닉네임을 입력해주세요"
+          value={nickname}
+          onChange={handleNicknameChange}
+          required
+        />
+        <Input
+          id="password"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          value={password}
+          onChange={handlePasswordChange}
+          required
+        />
+        <Message>회원이 아니시라면 자동으로 회원가입을 진행합니다</Message>
         <Button type="submit" disabled={!isFormValid}>로그인하기</Button>
       </Form>
     </Container>
