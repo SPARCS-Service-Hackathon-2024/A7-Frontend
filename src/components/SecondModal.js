@@ -16,7 +16,7 @@ const FirstModal = ({ isOpen, onRequestClose, onSelectNumberOfWeek }) => {
                     <button onClick={() => onSelectNumberOfWeek('1주')} className="modal-button">1주</button>
                     <button onClick={() => onSelectNumberOfWeek('2주')} className="modal-button">2주</button>
                     <button onClick={() => onSelectNumberOfWeek('3주')} className="modal-button">3주</button>
-                    <button onClick={() => onSelectNumberOfWeek('4주')} className="modal-button">4주</button>
+                    <button onClick={() => onSelectNumberOfWeek('4주 이상')} className="modal-button">4주</button>
                 </div>
             </div>
         </Modal>

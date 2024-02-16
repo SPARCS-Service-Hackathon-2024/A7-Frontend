@@ -8,7 +8,8 @@ function Header() {
         <header className="header">
             <a href="/chat"><img src={MessageIcon} alt="채팅"/></a>
             <span>추천</span>
-            <a href="/mypage"><img src={PersonIcon} alt="마이페이지"/></a>
+            <img src={PersonIcon} alt="마이페이지"/>
+            {/*<a href="/mypage"><img src={PersonIcon} alt="마이페이지"/></a>*/}
         </header>
     );
 }

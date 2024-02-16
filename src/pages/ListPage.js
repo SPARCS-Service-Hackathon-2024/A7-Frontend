@@ -89,11 +89,11 @@ const ListPage = () => {
                     {items.map((item, index) => (
                         <div key={index} className="item">
                             <div className="content-space">
-                                <img className="content-image" src={item.image_url} alt={item.aptName}/>
+                                <img className="content-image" src={item.image_url} onClick={() => handleItemClick(item.house_id)}/>
                                 <div className="content-body">
                                     <div className="content-info">
-                                        <span className="span-title">{item.aptName}</span>
-                                        <span className="span-content"><LocationIcon
+                                        <span className="span-title" onClick={() => handleItemClick(item.house_id)}>{item.aptName}</span>
+                                        <span className="span-content" onClick={() => handleItemClick(item.house_id)}><LocationIcon
                                             className="location-icon"/>{item.exposureAddress}</span>
                                     </div>
                                     <img
@@ -117,7 +117,7 @@ const ListPage = () => {
                     {items2.map((item, index) => (
                         <div key={index} className="item">
                             <div className="content-space">
-                                <img className="content-image2" src={item.image_url} alt={item.aptName}/>
+                                <img className="content-image2" src={item.image_url} onClick={() => handleItemClick(item.house_id)}/>
                                 <div className="content-body">
                                     <div key={index} className="item" onClick={() => handleItemClick(item.house_id)}>
                                         <div className="content-info">

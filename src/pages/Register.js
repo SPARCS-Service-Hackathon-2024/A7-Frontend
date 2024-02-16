@@ -114,7 +114,12 @@ const Register = () => {
       if (response.success) {
         localStorage.setItem('token', response.data.access_token);
         localStorage.setItem('nickname', nickname);
-        goChat();
+        if (response.data.is_signup){
+          navigator('/chat');
+        }
+        else{
+          goChat();
+        }
       } else {
         alert(response.message);
       }

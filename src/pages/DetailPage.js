@@ -3,8 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { detail } from '../services/detail';
 import map from '../assets/map-pin.svg';
-import schoolIcon from '../assets/schoolBuilding.svg'; 
+import schoolIcon from '../assets/schoolBuilding.svg';
+import backButtonSvg from '../assets/chevron.svg';
 import styled from 'styled-components';
+import '../css/detail.css';
+
+const ImageContainer = styled.div`
+  position: relative;
+`;
+
+const BackButton = styled.img`
+  position: absolute;
+  top: 10px; // 상단에서부터의 거리
+  left: 10px; // 왼쪽에서부터의 거리
+  width: 40px; // 버튼 크기 조정
+  height: 40px; // 버튼 크기 조정
+`;
+
+
 
 const Container = styled.div`
     width: 100%;
@@ -142,7 +158,7 @@ function DetailPage() {
     }, [house_id]);
 
     if (!houseDetail) {
-        return <div>Loading...</div>;
+        return <div className="loading">Loading...</div>;
     }
 
     const renderRow = (label, value) => (
@@ -152,13 +168,20 @@ function DetailPage() {
         </TableRow>
     );
 
+    const handleBackClick = () => {
+        navigator('/list');
+    }
+
     const handleRegisterClick = () => {
         navigator('/registerHome');
     };
 
     return (
         <>
-            <AptImage src={houseDetail.image_url} alt="아파트 이미지" />
+            <ImageContainer>
+                <AptImage src={houseDetail.image_url} alt="아파트 이미지" />
+                <BackButton src={backButtonSvg} alt="뒤로가기" onClick={handleBackClick}/>
+            </ImageContainer>
             <Container>
                 <SemiContainer>
                     <AptName>{houseDetail.aptName}</AptName>
@@ -170,7 +193,7 @@ function DetailPage() {
                         {renderRow('면적', `57.96m²`)}
                         {renderRow('특징', houseDetail.tagList.join(', '))}
                         {renderRow('보증금', `${houseDetail.aptHouseholdCount}만원`)}
-                        {renderRow('월세', `72만원`)}
+                        {renderRow('월세', `35만원`)}
                         {renderRow('난방', `${houseDetail.aptHeatMethodTypeName}`)}
                         {renderRow('가스', `${houseDetail.aptHeatFuelTypeName}`)}
                     </Table>
@@ -181,6 +204,7 @@ function DetailPage() {
                         {renderRow('근처학교', `${houseDetail.schoolName}`)}
                         {renderRow('학교 종류', `${houseDetail.organizationType}`)}
                         {renderRow('학교까지 걸어서', `${houseDetail.walkTime}분`)}
+                        {renderRow('선생님당 학생 수', `${houseDetail.studentCountPerTeacher}`)}
                     </Table>
                 </SemiContainer>
                 <ButtonContainer>
