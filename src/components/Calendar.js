@@ -20,8 +20,8 @@ const CalendarImage = styled.img`
 
 const Label = styled.label`
     font-family: 'Pretendard', sans-serif;
-    font-weight: 500;
-    margin-bottom: 12;
+    font-weight: 600;
+    padding-bottom: 12px;
 `;
 
 const CalendarLabelContainer = styled.div`
@@ -47,6 +47,23 @@ const Button = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+`;
+
+const DateContainer = styled.div`
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+`;
+
+const DateBox = styled.div`
+    background-color: #f0f0f0;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
 `;
 
 class Calendar extends Component {
@@ -80,8 +97,12 @@ class Calendar extends Component {
                 <div style={{ marginTop: '20px' }}>
                     <CalendarLabelContainer>
                         <CalendarImage src={CalendarIcon} />
-                        <Label>선택한 날짜를 확인해주세요</Label>
-                        {formatDate(this.state.startDate)} ~ {formatDate(this.state.endDate)}
+                        <Label>선택하신 날짜를 확인해주세요</Label>
+                        <DateContainer>
+                            <DateBox>{formatDate(this.state.startDate)}</DateBox>
+                            <span>~</span>
+                            <DateBox>{formatDate(this.state.endDate)}</DateBox>
+                        </DateContainer>
                     </CalendarLabelContainer>
 
                     <Button>

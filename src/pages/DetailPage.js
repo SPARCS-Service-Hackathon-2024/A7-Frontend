@@ -11,7 +11,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     text-align: left;
-    padding: 0 16px;
+    overflow-x: None;
+`;
+
+const SemiContainer = styled.div`
+    padding-left: 16px;
 `;
 
 const Button = styled.div`
@@ -24,11 +28,17 @@ const Button = styled.div`
     font-size: 14px;
     border: none;
     border-radius: 16px;
-    margin: 4vh auto;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+`;
+
+const ButtonContainer = styled.div`
+    width: 100%; // 너비를 100%로 설정하여 부모 컨테이너의 전체 너비를 차지하도록 함
+    display: flex; // Flexbox를 사용
+    justify-content: center; // 가운데 정렬
+    margin: 4vh auto; // 상하 여백을 주고 좌우는 자동으로 마진을 줘서 가운데 정렬
 `;
 
 const AptImage = styled.img`
@@ -150,29 +160,32 @@ function DetailPage() {
         <>
             <AptImage src={houseDetail.image_url} alt="아파트 이미지" />
             <Container>
-                <AptName>{houseDetail.aptName}</AptName>
-                <MapContainer>
-                    <MapImage src={map} alt="지도"/>
-                    <Address>{houseDetail.exposureAddress}</Address>
-                </MapContainer>
-                <Table>
-                    {renderRow('면적', `57.96m²`)}
-                    {renderRow('특징', houseDetail.tagList.join(', '))}
-                    {renderRow('보증금', `${houseDetail.aptHouseholdCount}만원`)}
-                    {renderRow('월세', `72만원`)}
-                    {renderRow('난방', `${houseDetail.aptHeatMethodTypeName}`)}
-                    {renderRow('가스', `${houseDetail.aptHeatFuelTypeName}`)}
-                </Table>
+                <SemiContainer>
+                    <AptName>{houseDetail.aptName}</AptName>
+                    <MapContainer>
+                        <MapImage src={map} alt="지도"/>
+                        <Address>{houseDetail.exposureAddress}</Address>
+                    </MapContainer>
+                    <Table>
+                        {renderRow('면적', `57.96m²`)}
+                        {renderRow('특징', houseDetail.tagList.join(', '))}
+                        {renderRow('보증금', `${houseDetail.aptHouseholdCount}만원`)}
+                        {renderRow('월세', `72만원`)}
+                        {renderRow('난방', `${houseDetail.aptHeatMethodTypeName}`)}
+                        {renderRow('가스', `${houseDetail.aptHeatFuelTypeName}`)}
+                    </Table>
 
-                <SchoolImage src={schoolIcon}/>
-                <SchoolName>근처 학교를 알아봤어요</SchoolName>
-                <Table>
-                    {renderRow('근처학교', `${houseDetail.schoolName}`)}
-                    {renderRow('학교 종류', `${houseDetail.organizationType}`)}
-                    {renderRow('학교까지 걸어서', `${houseDetail.walkTime}분`)}
-                </Table>
-
-                <Button onClick={handleRegisterClick}>한달 살기 신청하기</Button>
+                    <SchoolImage src={schoolIcon}/>
+                    <SchoolName>근처 학교를 알아봤어요</SchoolName>
+                    <Table>
+                        {renderRow('근처학교', `${houseDetail.schoolName}`)}
+                        {renderRow('학교 종류', `${houseDetail.organizationType}`)}
+                        {renderRow('학교까지 걸어서', `${houseDetail.walkTime}분`)}
+                    </Table>
+                </SemiContainer>
+                <ButtonContainer>
+                        <Button onClick={handleRegisterClick}>한달 살기 신청하기</Button>
+                    </ButtonContainer>
             </Container>
         </>
     );
