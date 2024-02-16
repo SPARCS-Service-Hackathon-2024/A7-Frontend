@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { detail } from '../services/detail';
 import map from '../assets/map-pin.svg';
@@ -11,6 +12,23 @@ const Container = styled.div`
     flex-direction: column;
     text-align: left;
     padding: 0 16px;
+`;
+
+const Button = styled.div`
+    background-color: #864AE1;
+    width: 80%;
+    height: 45px;
+    color: #fff;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    border-radius: 16px;
+    margin: 4vh auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const AptImage = styled.img`
@@ -94,6 +112,8 @@ const TableData = styled.div`
 `;
 
 function DetailPage() {
+    const navigator = useNavigate();
+
     const { house_id } = useParams();
     const [houseDetail, setHouseDetail] = useState(null);
 
@@ -122,6 +142,10 @@ function DetailPage() {
         </TableRow>
     );
 
+    const handleRegisterClick = () => {
+        navigator('/registerHome');
+    };
+
     return (
         <>
             <AptImage src={houseDetail.image_url} alt="아파트 이미지" />
@@ -147,6 +171,8 @@ function DetailPage() {
                     {renderRow('학교 종류', `${houseDetail.organizationType}`)}
                     {renderRow('학교까지 걸어서', `${houseDetail.walkTime}분`)}
                 </Table>
+
+                <Button onClick={handleRegisterClick}>한달 살기 신청하기</Button>
             </Container>
         </>
     );
