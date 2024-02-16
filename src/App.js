@@ -20,6 +20,7 @@ function App() {
           <Route path="list" element={<ListPage />} />
           <Route path="mypage" element={<MyPage/>} />
           <Route path="registerHome" element={<RegisterHome />} />
+          <Route path="detail/:house_id" element={<DetailPage />} />
         </Routes>
       </Router>
     </div>
