@@ -31,3 +31,32 @@
 .transparent-div {
     visibility: hidden; /* 투명 div를 보이지 않게 함 */
 }
+
+.text-input-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f8f8f8;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.text-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #6750A4;
+    color: #FFFFFF;
+    cursor: pointer;
+}

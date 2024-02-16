@@ -1,9 +1,9 @@
 .Modal {
     width: 100%;
-    height: auto;
+    height: 170px;
     position: fixed;
     bottom: 0;
-    bottom: env(safe-area-inset-bottom); /* 아이폰X 이상의 모델에서 하단에 위치하도록 설정 */
+    /*bottom: env(safe-area-inset-bottom); !* 아이폰X 이상의 모델에서 하단에 위치하도록 설정 *!*/
     background: #fff; /* 모달의 배경색 */
     z-index: 1000;
     transition: transform 0.3s ease; /* 모달이 나타나거나 사라질 때 부드럽게 나타나도록 설정 */
@@ -27,16 +27,16 @@
 
 .button-container {
     align-items: center;
+    padding-top: 20px;
 }
 
 .modal-button {
     background-color: #EAE3FC;
-    width: 173px;
+    width: 168px;
     height: 44px;
     color: black;
     border: none;
     padding: 10px 20px;
-    margin: 10px;
     border-radius: 20px;
     font-size: 16px;
     cursor: pointer;

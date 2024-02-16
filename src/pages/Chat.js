@@ -6,6 +6,7 @@ import SecondModal from '../components/SecondModal';
 import ThirdModal from '../components/ThirdModal';
 import FourthModal from '../components/FourthModal';
 import FifthModal from '../components/FifthModal';
+
 import '../css/chat.css';
 import ChatProfile from '../assets/message-circle.svg';
 
@@ -106,6 +107,18 @@ const Chat = () => {
   const [fifthEffectFinished, setFifthEffectFinished] = useState(false);
   const [finalEffectFinished, setFinalEffectFinished] = useState(false);
 
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   onSubmit(inputValue);
+  //   setInputValue(''); // 입력 후 입력창 초기화
+  // };
+
 
   useEffect(() => {
     const storedNickname = localStorage.getItem('nickname');
@@ -114,7 +127,10 @@ const Chat = () => {
     }
     const chatbox = document.querySelector('.message-container'); // chatbox 클래스를 가진 요소 선택
     if (chatbox) {
-      chatbox.scrollTop = chatbox.scrollHeight; // 스크롤을 맨 아래로 이동
+      setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+        , 1000);
     }
 
   }, [messages]);
@@ -456,6 +472,12 @@ return (
               </div>
           ))}
         </div>
+        {finalEffectFinished && <input
+            type="text"
+            value={inputValue}
+            className="text-input"
+            placeholder="여기에 입력하세요..."
+        /> && <button type="submit" className="submit-button">전송</button> }
 
       </StyledChat>
     </ChatContainer>
