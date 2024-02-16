@@ -5,7 +5,9 @@ import OnBoarding from './pages/OnBoarding';
 import Register from './pages/Register';
 import Chat from './pages/Chat';
 import ListPage from './pages/ListPage';
+import DetailPage from './pages/DetailPage'
 import MyPage from './pages/MyPage';
+import RegisterHome from './pages/RegisterHome.js';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="list" element={<ListPage />} />
           <Route path="mypage" element={<MyPage/>} />
+          <Route path="registerHome" element={<RegisterHome />} />
+          <Route path="detail/:house_id" element={<DetailPage />} />
         </Routes>
       </Router>
     </div>

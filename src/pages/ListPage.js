@@ -8,6 +8,7 @@ import '../css/ListPage.css';
 import HomeIcon from '../assets/home.svg';
 import { ReactComponent as LocationIcon } from '../assets/map-pin.svg';
 import {like, list, rec_list} from '../services/list';
+import { useNavigate } from 'react-router-dom';
 
 
 const HomeImage = styled.img`
@@ -29,6 +30,8 @@ const NicknameText = styled.h1`
 `;
 
 const ListPage = () => {
+    const navigate = useNavigate();
+
     const [nickname, setNickname] = useState('');
     const [items, setItems] = useState([]); // API로부터 받아온 데이터를 저장할 상태
     const [items2, setItems2] = useState([]); // API로부터 받아온 데이터를 저장할 상태
@@ -69,6 +72,10 @@ const ListPage = () => {
 
         fetchData();
     }, []);
+
+    const handleItemClick = (houseId) => {
+        navigate(`/detail/${houseId}`); // 상세 페이지로 이동합니다.
+    };
 
     return (
         <>
@@ -112,10 +119,12 @@ const ListPage = () => {
                             <div className="content-space">
                                 <img className="content-image2" src={item.image_url} alt={item.aptName}/>
                                 <div className="content-body">
-                                    <div className="content-info">
-                                        <span className="span-title">{item.aptName}</span>
-                                        <span className="span-content"><LocationIcon
-                                            className="location-icon"/>{item.exposureAddress}</span>
+                                    <div key={index} className="item" onClick={() => handleItemClick(item.house_id)}>
+                                        <div className="content-info">
+                                            <span className="span-title">{item.aptName}</span>
+                                            <span className="span-content"><LocationIcon
+                                                className="location-icon"/>{item.exposureAddress}</span>
+                                        </div>
                                     </div>
                                     <img
                                         src={item.is_like ? HeartIcon : HeartOffIcon}
