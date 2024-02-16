@@ -6,18 +6,22 @@ import SecondModal from '../components/SecondModal';
 import ThirdModal from '../components/ThirdModal';
 import FourthModal from '../components/FourthModal';
 import FifthModal from '../components/FifthModal';
+import SendButton from '../assets/send.svg';
 
 import '../css/chat.css';
 import ChatProfile from '../assets/message-circle.svg';
+import {useNavigate} from "react-router-dom";
 
 
 const StyledChat = styled.div`
   background-color: #F2E7F9;
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  height: 100vh;
+  overflow-x: hidden;
   padding: 10px;
+  padding-bottom: 50px;
   box-sizing: border-box;
+  overflow-x: auto;
   text-align: left;
   font-family: 'Pretendard', sans-serif;
 `;
@@ -65,12 +69,15 @@ const ChatBubble = styled.div`
 `;
 
 const ChatContainer = styled.div`
+  overflow-x: auto;
   height: 100vh;
 `;
 
 
 const Chat = () => {
   const [nickname, setNickname] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const [messages, setMessages] = useState([]);
   const [secondMessages, setSecondMessages] = useState([]);
@@ -119,21 +126,28 @@ const Chat = () => {
   //   setInputValue(''); // 입력 후 입력창 초기화
   // };
 
+  const transformData = (data) => {
+    return {
+      person_count: data.numPeople,
+      period: data.numWeek,
+      identity: data.status,
+      car: data.car === "있다" ? "자차" : "대중교통",
+      child: data.numChild === "그렇다" ? "아이 있음" : "아이 없음",
+      significant: data.additionalInfo
+    };
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
 
   useEffect(() => {
     const storedNickname = localStorage.getItem('nickname');
     if (storedNickname) {
       setNickname(storedNickname);
     }
-    const chatbox = document.querySelector('.message-container'); // chatbox 클래스를 가진 요소 선택
-    if (chatbox) {
-      setTimeout(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-      }
-        , 1000);
-    }
-
-  }, [messages]);
+  }, []);
 
   const FirstChatMessages = [
     '살아봐유에 오신걸 환영해요!',
@@ -231,6 +245,62 @@ const Chat = () => {
   const closeModalFifth = () => {
     setModalOpenFifth(false);
   };
+
+  const navigator = useNavigate();
+
+  const handleSendClick = async () => {
+
+
+    console.log("전송 버튼 클릭됨!");
+
+    // 상태에서 데이터를 가져옵니다.
+    const collectedData = {
+      numPeople: selectedNumPeople,
+      numWeek: selectedNumWeek,
+      status: selectedStatus,
+      car: selectedCar,
+      numChild: selectedNumChild,
+      additionalInfo: inputValue // 사용자가 입력한 추가 정보
+    };
+
+    // 데이터를 변환합니다.
+    const transformedData = transformData(collectedData);
+
+    console.log(transformedData); // 변환된 데이터를 확인합니다.
+    setIsLoading(true);
+
+    try {
+
+      const url = 'https://sarabwayu.com/api/chat';
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        body: JSON.stringify(transformedData)
+      });
+
+      const responseData = await response.json();
+
+      setIsLoading(false);
+
+      if (response.ok) {
+        console.log(responseData.data);
+
+
+        navigator('/list');
+        } else {
+        // 서버에서 오류 응답을 받은 경우의 처리를 여기에 작성합니다.
+        console.error('서버 오류');
+      }
+    } catch (error) {
+      // 네트워크 오류 처리를 여기에 작성합니다.
+      console.error('전송 실패:', error);
+    }
+  };
+
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -346,6 +416,7 @@ const Chat = () => {
         if (finalIndex === 4) {
           clearInterval(intervalId);
           setIsWaitingForInput(true);
+          setFinalEffectFinished(true);
         } else {
           setFinalMessages(prevFinalMessages => [...prevFinalMessages, FinalChatMessages[finalIndex]]);
           setFinalIndex(prevFinalIndex => prevFinalIndex + 1);
@@ -472,12 +543,22 @@ return (
               </div>
           ))}
         </div>
-        {finalEffectFinished && <input
-            type="text"
-            value={inputValue}
-            className="text-input"
-            placeholder="여기에 입력하세요..."
-        /> && <button type="submit" className="submit-button">전송</button> }
+        {isLoading && <div className="loading-spinner"></div>}
+        {finalEffectFinished &&
+          <div className="padding-2"></div>
+        }
+        {finalEffectFinished &&
+            <div className="my-input-container">
+              <input
+                  type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  className="text-input"
+                  placeholder="여기에 입력하세요..."
+              />
+              <img src={SendButton} className="send-button" onClick={handleSendClick} alt="전송"/>
+            </div>
+        }
 
       </StyledChat>
     </ChatContainer>

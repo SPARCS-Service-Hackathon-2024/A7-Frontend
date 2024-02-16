@@ -13,7 +13,6 @@
     width: 100%;
     height: calc(100vh - env(safe-area-inset-bottom));
     background-color: #fff;
-    overflow-y: hidden;
     --v-scrollbar-offset: 0 !important;
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */

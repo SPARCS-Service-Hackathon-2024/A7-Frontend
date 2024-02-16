@@ -6,9 +6,8 @@ const FirstModal = ({ isOpen, onRequestClose, onSelectNumberOfWeek }) => {
     return (
         <Modal
             isOpen={isOpen}
-            onRequestClose={onRequestClose}
             contentLabel="Second Modal"
-            className="Modal"
+            className="Modal-1"
             overlayClassName="Overlay"
             ariaHideApp={false}
         >

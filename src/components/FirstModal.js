@@ -8,7 +8,7 @@ const FirstModal = ({ isOpen, onRequestClose, onSelectNumberOfPeople }) => {
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             contentLabel="First Modal"
-            className="Modal"
+            className="Modal-1"
             overlayClassName="Overlay"
             ariaHideApp={false}
         >
