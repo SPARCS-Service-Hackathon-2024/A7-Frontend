@@ -32,6 +32,7 @@ const Container = styled.div`
 
 const SemiContainer = styled.div`
     padding-left: 16px;
+    padding-right: 16px;
 `;
 
 const Button = styled.div`
@@ -189,6 +190,12 @@ function DetailPage() {
                         <MapImage src={map} alt="지도"/>
                         <Address>{houseDetail.exposureAddress}</Address>
                     </MapContainer>
+                    {
+                        houseDetail.reason &&
+                        <div className="reason">
+                            <span>{houseDetail.reason}</span>
+                        </div>
+                    }
                     <Table>
                         {renderRow('면적', `57.96m²`)}
                         {renderRow('특징', houseDetail.tagList.join(', '))}
