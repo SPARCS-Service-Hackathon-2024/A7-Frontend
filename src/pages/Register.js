@@ -112,6 +112,7 @@ const Register = () => {
       const response = await login(nickname, password);
 
       if (response.success) {
+        // localStorage 토큰 삭제 로직 필요
         localStorage.setItem('token', response.data.access_token);
         localStorage.setItem('nickname', nickname);
         if (response.data.is_signup){
