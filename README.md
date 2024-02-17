@@ -19,7 +19,7 @@ SPARCS Service Hackathon 2024 는 대전광역시와 KAIST가 주최하고,  KAI
 
 ### Tech Stack
 
-- Fronted는 React를 사용해서 제작했습니다.
+- React를 사용해서 제작했습니다.
 - Github Actions를 사용해서 CI/CD를 구축했습니다.
 - NCLOUD를 사용해서 서버를 배포했습니다.
 - manifest.json을 사용해서 PWA를 구현했습니다.
